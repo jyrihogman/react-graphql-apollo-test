@@ -1,0 +1,9 @@
+mongodb:
+    image: mongo:latest
+    container_name: "moviemongo"
+    ports:
+        - 27017:27017
+        - 28017:28017
+    expose:
+        - "27017"
+        - "28017"
