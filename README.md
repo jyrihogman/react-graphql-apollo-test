@@ -5,6 +5,8 @@ docker-compose file to start up a mongo container,
 run the dockerScript.sh to add needed collections & data
 
 Todo
+* Cleanup
+* (TS) get rid of any
 * Add Redux
 * Routing
 * Use case for GraphQL mutations
