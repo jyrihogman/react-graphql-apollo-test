@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export interface Director {
+export interface IDirector {
 	_id: string;
 	id: string;
 	name: string;

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles, Theme, WithStyles } from 'material-ui/styles';
+import { ClassNameMap, CSSProperties } from 'material-ui/styles/withStyles';
 import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
@@ -7,9 +8,13 @@ import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Tooltip, Grid } from 'material-ui';
+import Grid from 'material-ui/Grid';
+import Tooltip from 'material-ui/Tooltip';
+import { IMovie } from '../../api/models/movie';
 
-const styles = (theme: any) => ({
+type withStyle = 'card' | 'media' | 'actions' | 'expand' | 'expandOpen' | 'avatar';
+
+const styles = (theme: Theme): Record<string, CSSProperties> => ({
 	card: {
 		maxWidth: 400
 	},
@@ -36,7 +41,17 @@ const styles = (theme: any) => ({
 	},
 });
 
-class Movie extends React.Component<any, any> {
+
+interface MovieProps {
+	movie: IMovie;
+	classes?: ClassNameMap<keyof typeof styles>;
+}
+
+interface MovieState {
+	expanded: boolean;
+}
+
+class Movie extends React.Component<MovieProps & WithStyles<withStyle>, MovieState> {
 	state = { expanded: false };
 
 	handleExpandClick = () => {
@@ -53,7 +68,7 @@ class Movie extends React.Component<any, any> {
 						avatar={
 							<Tooltip id="tooltip-bottom" title={movie.genre} placement="bottom">
 								<Avatar aria-label="Genre" className={classes.avatar}>
-									{movie.genre.charAt()}
+									{movie.genre.charAt(0)}
 								</Avatar>
 							</Tooltip>
 
@@ -83,4 +98,4 @@ class Movie extends React.Component<any, any> {
 }
 
 
-export default withStyles(styles)(Movie);
+export default withStyles(styles)<MovieProps>(Movie);

@@ -9,8 +9,6 @@ import green from 'material-ui/colors/green';
 import indigo from 'material-ui/colors/indigo';
 import AppDrawer from './components/AppDrawer';
 
-// import './App.css';
-
 const apolloClient = new ApolloClient({
 	uri: 'http://localhost:3005/graphql',
 });
@@ -22,9 +20,6 @@ const theme = createMuiTheme({
 		background: {
 			default: indigo['500']
 		}
-		// Used to shift a color's luminance by approximately
-		// two indexes within its tonal palette.
-		// E.g., shift from Red 500 to Red 300 or Red 700.
 	},
 });
 
@@ -36,7 +31,6 @@ class App extends React.Component {
 					<AppDrawer />
 				</ApolloProvider>
 			</MuiThemeProvider>
-
 		);
 	}
 }

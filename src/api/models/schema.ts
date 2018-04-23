@@ -11,7 +11,7 @@ import {
 import { directorModel } from './director';
 import { movieModel } from './movie';
 
-export const MovieType = new GraphQLObjectType({
+export const MovieType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Movie',
 	fields: () => ({
 		id: { type: GraphQLID },
@@ -28,7 +28,7 @@ export const MovieType = new GraphQLObjectType({
 	})
 });
 
-export const DirectorType = new GraphQLObjectType({
+export const DirectorType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Director',
 	fields: () => ({
 		id: { type: GraphQLID },

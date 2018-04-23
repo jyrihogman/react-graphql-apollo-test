@@ -12,5 +12,4 @@ const MovieList = ({ movies }: { movies: IMovie[] }) => {
 	);
 }
 
-
 export default MovieList;

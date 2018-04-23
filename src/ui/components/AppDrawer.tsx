@@ -12,14 +12,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { gql } from 'apollo-boost';
-import { graphql } from 'react-apollo';
+import { graphql, QueryProps } from 'react-apollo';
 import { mailFolderListItems, otherMailFolderListItems } from './DrawerList';
 import MovieList from './MovieList';
-import { Grid } from 'material-ui';
+import { Grid, Theme } from 'material-ui';
+import { CSSProperties, WithStyles } from 'material-ui/styles/withStyles';
+import { IMovie } from '../../api/models/movie';
 
 const drawerWidth = 240;
 
-const styles = (theme: any): any => ({
+const styles = (theme: Theme): Record<string, CSSProperties> => ({
 	root: {
 		flexGrow: 1,
 	},
@@ -112,7 +114,15 @@ const getMoviesQuery = gql`
 }
 `
 
-class AppDrawer extends React.Component<any, any>{
+interface AppDrawerProps {
+	data: any & QueryProps;
+}
+
+interface AppDrawerState {
+	open: boolean;
+}
+
+class AppDrawer extends React.Component<AppDrawerProps & WithStyles, AppDrawerState>{
 	state = {
 		open: false,
 	};
@@ -140,7 +150,7 @@ class AppDrawer extends React.Component<any, any>{
 			>
 				<div className={classes.drawerHeader}>
 					<IconButton onClick={this.handleDrawerClose}>
-						{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+						{theme!.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
 					</IconButton>
 				</div>
 				<Divider />
