@@ -17,7 +17,7 @@ import { mailFolderListItems, otherMailFolderListItems } from './DrawerList';
 import MovieList from './MovieList';
 import { Grid, Theme } from 'material-ui';
 import { CSSProperties, WithStyles } from 'material-ui/styles/withStyles';
-import { IMovie } from '../../api/models/movie';
+// import { IMovie } from '../../api/models/movie';
 
 const drawerWidth = 240;
 
@@ -33,6 +33,8 @@ const styles = (theme: Theme): Record<string, CSSProperties> => ({
 		width: '100%',
 	},
 	appBar: {
+		backgroundColor: 'white',
+		color: 'black',
 		position: 'absolute',
 		transition: theme.transitions.create(['margin', 'width'], {
 			easing: theme.transitions.easing.sharp,
