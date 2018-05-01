@@ -1,20 +1,20 @@
-/* slint-disable */
 import * as React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
 import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles';
 import purple from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import indigo from 'material-ui/colors/indigo';
 import AppDrawer from './components/AppDrawer';
-
-const apolloClient = new ApolloClient({
-	uri: 'http://localhost:3005/graphql',
-});
+import { fetchMovies } from './actions/movieActions';
+import movieReducer from './reducers/movieReducer';
+import { getMoviesQuery } from './queries/movieQuery';
 
 const theme = createMuiTheme({
 	palette: {
+		primary: indigo,
 		secondary: green,
 		error: purple,
 		background: {
@@ -23,14 +23,26 @@ const theme = createMuiTheme({
 	},
 });
 
+const store = createStore(
+	combineReducers({
+		movies: movieReducer
+	}),
+	applyMiddleware(
+		thunk,
+	)
+);
+
+store
+	.dispatch(fetchMovies(getMoviesQuery))
+
 class App extends React.Component {
 	public render() {
 		return (
-			<MuiThemeProvider theme={theme}>
-				<ApolloProvider client={apolloClient} >
+			<Provider store={store}>
+				<MuiThemeProvider theme={theme}>
 					<AppDrawer />
-				</ApolloProvider>
-			</MuiThemeProvider>
+				</MuiThemeProvider>
+			</Provider>
 		);
 	}
 }

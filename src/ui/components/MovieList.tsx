@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Movie from './Movie';
-import { IMovie } from '../../api/models/movie';
 
-const MovieList = ({ movies }: { movies: IMovie[] }) => {
-	const movieComponents = movies.map((movie) => <Movie key={movie.id} movie={movie} />)
+const MovieList = (props: any) => {
+	const movieComponents = props.movies.map((movie: any) => {
+		return <Movie key={movie.id} movie={movie} />
+	})
 
 	return (
 		<>

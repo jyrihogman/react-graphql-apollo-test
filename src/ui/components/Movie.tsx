@@ -5,18 +5,20 @@ import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
-import red from 'material-ui/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Grid from 'material-ui/Grid';
 import Tooltip from 'material-ui/Tooltip';
 import { IMovie } from '../../api/models/movie';
 
-type withStyle = 'card' | 'media' | 'actions' | 'expand' | 'expandOpen' | 'avatar';
+type withStyle = 'card' | 'media' | 'actions' | 'expand' | 'expandOpen' | 'avatar' | 'iconLiked';
 
 const styles = (theme: Theme): Record<string, CSSProperties> => ({
 	card: {
 		maxWidth: 400
+	},
+	iconLiked: {
+		color: 'red',
 	},
 	media: {
 		height: 0,
@@ -36,7 +38,7 @@ const styles = (theme: Theme): Record<string, CSSProperties> => ({
 		transform: 'rotate(180deg)',
 	},
 	avatar: {
-		backgroundColor: red[500],
+		backgroundColor: theme.palette.primary.main,
 		color: '#ffffff'
 	},
 });
@@ -48,14 +50,14 @@ interface MovieProps {
 }
 
 interface MovieState {
-	expanded: boolean;
+	liked: boolean;
 }
 
 class Movie extends React.Component<MovieProps & WithStyles<withStyle>, MovieState> {
-	state = { expanded: false };
+	state = { liked: false };
 
-	handleExpandClick = () => {
-		this.setState({ expanded: !this.state.expanded });
+	handleLike = () => {
+		this.setState((state: MovieState) => ({ liked: !state.liked }));
 	};
 
 	render() {
@@ -87,8 +89,8 @@ class Movie extends React.Component<MovieProps & WithStyles<withStyle>, MovieSta
 						</Typography>
 					</CardContent>
 					<CardActions className={classes.actions} disableActionSpacing>
-						<IconButton aria-label="Add to favorites">
-							<FavoriteIcon />
+						<IconButton onClick={this.handleLike} aria-label="Add to favorites">
+							<FavoriteIcon className={this.state.liked ? classes.iconLiked : undefined} />
 						</IconButton>
 					</CardActions>
 				</Card>

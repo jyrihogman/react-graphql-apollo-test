@@ -11,13 +11,11 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { gql } from 'apollo-boost';
-import { graphql, QueryProps } from 'react-apollo';
 import { mailFolderListItems, otherMailFolderListItems } from './DrawerList';
 import MovieList from './MovieList';
 import { Grid, Theme } from 'material-ui';
 import { CSSProperties, WithStyles } from 'material-ui/styles/withStyles';
-// import { IMovie } from '../../api/models/movie';
+import { connect } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -101,30 +99,7 @@ const styles = (theme: Theme): Record<string, CSSProperties> => ({
 	},
 });
 
-const getMoviesQuery = gql`
-{
-  movies {
-    id
-    title
-    genre
-    description
-    director {
-      name
-    }
-    year
-  }
-}
-`
-
-interface AppDrawerProps {
-	data: any & QueryProps;
-}
-
-interface AppDrawerState {
-	open: boolean;
-}
-
-class AppDrawer extends React.Component<AppDrawerProps & WithStyles, AppDrawerState>{
+class AppDrawer extends React.Component<any & WithStyles, any>{
 	state = {
 		open: false,
 	};
@@ -194,7 +169,7 @@ class AppDrawer extends React.Component<AppDrawerProps & WithStyles, AppDrawerSt
 					>
 						<div className={classes.drawerHeader} />
 						<Grid style={{ paddingLeft: '6%' }} item container spacing={16} xs={12}>
-							{this.props.data.loading ? null : <MovieList movies={this.props.data.movies} />}
+							{this.props.movies.length > 0 ? <MovieList movies={this.props.movies} /> : null}
 						</Grid>
 					</main>
 				</Grid>
@@ -203,4 +178,10 @@ class AppDrawer extends React.Component<AppDrawerProps & WithStyles, AppDrawerSt
 	}
 }
 
-export default graphql(getMoviesQuery)(withStyles(styles, { withTheme: true })(AppDrawer));
+const mapStateToProps = (state: any) => {
+	return { movies: state.movies }
+}
+
+export default connect(
+	mapStateToProps
+)(withStyles(styles, { withTheme: true })(AppDrawer));
