@@ -47,3 +47,5 @@ db.directors.insert({ id: '3', name: 'Francis Ford Coppola', birthdate: '07/04/1
 db.directors.insert({ id: '4', name: 'Bryan Singer', birthdate: '17/08/1965', country: 'USA' })
 db.directors.insert({ id: '5', name: 'Quentin Tarantino', birthdate: '27/03/1963', country: 'USA' })
 db.directors.insert({ id: '6', name: 'Frank Darabont', birthdate: '28/01/1959', country: 'France' })
+
+db.createCollection("users")
